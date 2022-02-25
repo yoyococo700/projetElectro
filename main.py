@@ -9,16 +9,18 @@ if __name__ == '__main__':
     dt=0.1
     t=0
 
-    while t<30:
-        battery.updateBattery(dt,70)
+    while t<10 and not battery.checkLowBattery() :
+        battery.updateBattery(dt,50,100)
         t+=dt
 
     tabCapacity = battery.getTabCapacity()
     tabEnergy = battery.getTabEnergy()
 
-    plt.plot(tabCapacity)
-    plt.plot(tabEnergy)
-    plt.plot(battery.getTab_pOut())
+    #plt.plot(tabCapacity,"-b", label = "Capacity")
+    plt.plot(tabEnergy, label = "Energy")
+    plt.plot(battery.getTab_pTropPlein(),"-g", label = "Trop plein batterie")
+    plt.plot(battery.tab_Current, "-r", label = "Courant")
+    plt.legend(loc="upper right")
     plt.show()
 
 
